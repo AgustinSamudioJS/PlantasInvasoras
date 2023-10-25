@@ -39,6 +39,7 @@ public class Juego extends InterfaceJuego {
 		// Inicializa el objeto entorno
 		this.entorno = new Entorno(this, "Plantas Invasoras - Grupo 5 - v1", 800, 591);
 		// Inicializar lo que haga falta para el juego
+		domingo=new Domingo(170,570,20,20);
 		escudo = new Escudo(400, 580, 20, 20);
 		boss = new Boss(400, 560, 40, 40);
 		layka = new Layka(400, 560, 40, 40);
@@ -93,7 +94,8 @@ public class Juego extends InterfaceJuego {
 		if (entorno.sePresiono(entorno.TECLA_ENTER)) {
 			System.exit(0);
 		}
-
+	
+	
 		if (layka != null) {
 			// MOVIMIENTOS PERRO 1 (Layka)
 			if (entorno.sePresiono(entorno.TECLA_DERECHA))
@@ -115,8 +117,26 @@ public class Juego extends InterfaceJuego {
 			} else {
 				layka.apagarMotor();
 			}
-			
+			//MOVIMIENTOS PERRO 2
+			if (entorno.sePresiono(entorno.TECLA_D))
+				domingo.setAngulo(Herramientas.radianes(0));
 
+			if (entorno.sePresiono(entorno.TECLA_A))
+				domingo.setAngulo(Herramientas.radianes(180));
+
+			if (entorno.sePresiono(entorno.TECLA_W))
+				domingo.setAngulo(Herramientas.radianes(270));
+
+			if (entorno.sePresiono(entorno.TECLA_S))
+				domingo.setAngulo(Herramientas.radianes(90));
+			if (entorno.estaPresionada(entorno.TECLA_A) || entorno.estaPresionada(entorno.TECLA_D)
+					|| entorno.estaPresionada(entorno.TECLA_W) || entorno.estaPresionada(entorno.TECLA_S)) {
+				domingo.moverAdelante();
+				domingo.prenderMotor();
+
+			} else {
+				domingo.apagarMotor();
+			}
 			// COLISION CON LAS CAJAS
 			if (manzana1.colisionCaja(33 + manzana1.ancho / 2, 33 + manzana1.alto / 2, manzana1.alto, manzana1.ancho,
 					layka.x, layka.y, layka.ancho, layka.alto)
@@ -147,6 +167,7 @@ public class Juego extends InterfaceJuego {
 			auto.moverAdelante();
 			auto2.moverAdelante();
 			auto2.dibujarse(entorno);
+			domingo.dibujarse(entorno);
 			layka.dibujarse(entorno);
 			auto.dibujarse(entorno);
 			entorno.cambiarFont("Impact", 20, Color.black);
@@ -236,7 +257,7 @@ public class Juego extends InterfaceJuego {
 
 			// NIVEL 2
 			if (puntos >= 20 && puntos <= 100) {
-				// aumentar velocidad de los autos y plantas
+				// aumenta velocidad de los autos y plantas
 				escudo.dibujarCaja(entorno);
 				escudo.dibujarse(entorno);
 				nivel = 2;
@@ -249,7 +270,7 @@ public class Juego extends InterfaceJuego {
 			}
 			// NIVEL 3
 			if (puntos >= 105 && puntos <= 150) {
-				// aumentar velocidad de los autos y plantas
+				// aumenta velocidad de los autos y plantas
 				nivel = 3;
 				auto.velocidad = 5;
 				auto2.velocidad = 5;
@@ -290,18 +311,13 @@ public class Juego extends InterfaceJuego {
 				gano = true;
 			}
 
-		} // TERMINA EL IF NULL
-
+		} // TERMINA EL IF NULL LAYKA
+	
 		else {
 			if (vidas <= 0 || gano == true) {
 
 				Scanner teclado = new Scanner(System.in);
 				String respuesta;
-//				System.out.println("Ingrese el nombre de usuario: ");
-//				usuario=teclado.next();
-//				Herramientas.MatrizSinNull(puntaje);
-//				Herramientas.AgregarUsuario(puntaje, usuario, PuntosS);
-//				Herramientas.ImprimirMatriz(puntaje);
 				System.out.println("¿Quiere seguir jugando?, S:si, para no: ingrese cualquier tecla,"
 						+ " si desea guardar el puntaje ingrese G.");
 				respuesta = teclado.next();
@@ -332,7 +348,6 @@ public class Juego extends InterfaceJuego {
 						String usuario;
 						System.out.println("Ingrese el nombre de usuario: ");
 						usuario=teclado.next();
-						
 					}
 					else {
 						System.exit(0);

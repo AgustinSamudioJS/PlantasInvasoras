@@ -34,7 +34,7 @@ public class Layka {
 	public void dibujarse(Entorno entorno) {
 		// entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
 		entorno.cambiarFont("Impact", 20, Color.white);
-		entorno.escribirTexto("Layka", this.x - 27, this.y - 40);
+		entorno.escribirTexto("Layka", this.x - 23, this.y - 25);
 
 		if (motor)
 			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.2);
