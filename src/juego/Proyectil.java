@@ -17,7 +17,7 @@ public class Proyectil {
  Color myColor= Color.blue;
  Rectangle caja=new Rectangle(x,y,ancho,alto);
  int contadorTicks = 0;
- int velocidad = 5;
+ double velocidad = 3.5;
  
   
   public Proyectil(int x, int y,int ancho,int alto) {
@@ -25,10 +25,10 @@ public class Proyectil {
    this.y = y;
    this.alto=alto;
    this.ancho=ancho;
-   this.angulo=angulo;
+//   this.angulo=angulo;
    motor=false; 
-   img1 = Herramientas.cargarImagen("proyectil.png");
-   img2 = Herramientas.cargarImagen("proyectil.png");
+   img1 = Herramientas.cargarImagen("BolaFuegoAzul.gif");
+   img2 = Herramientas.cargarImagen("BolaFuegoAzul.gif");
   }
   
   public void dibujarse(Entorno entorno)
@@ -36,9 +36,9 @@ public class Proyectil {
    //entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
   
    if (motor)
-    entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.4);
+    entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.17);
    else
-    entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.4);
+    entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.17);
   }
   public void girar(double modificador) 
   {
@@ -61,7 +61,7 @@ public class Proyectil {
   }
 
   public boolean cooldown(){
-   if (contadorTicks > 100){
+   if (contadorTicks > 300){
     return false;
    }
    contadorTicks += 1;
