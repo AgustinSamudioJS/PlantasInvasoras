@@ -36,10 +36,11 @@ public class Entorno extends JFrame
     public final char TECLA_INICIO = 36;
     public final char TECLA_FIN = 35;
 	public final char TECLA_ESCAPE = 27;
-	public final char TECLA_A = 27;
-	public final char TECLA_W = 27;
-	public final char TECLA_S = 27;
-	public final char TECLA_D = 27;
+	public final char TECLA_A = 97;
+	public final char TECLA_W = 119;
+	public final char TECLA_S = 115;
+	public final char TECLA_D = 100;
+	public final char TECLA_F = 102;
 
 
     
