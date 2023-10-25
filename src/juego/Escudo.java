@@ -2,8 +2,8 @@ package juego;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
-import entorno.Entorno;
-import entorno.Herramientas;
+import entorno2.Entorno;
+import entorno2.Herramientas;
 
 public class Escudo {
 	// Variables de instancia

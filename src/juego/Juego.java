@@ -2,10 +2,9 @@ package juego;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.Scanner;
-
-import entorno.Entorno;
-import entorno.Herramientas;
-import entorno.InterfaceJuego;
+import entorno2.Entorno;
+import entorno2.Herramientas;
+import entorno2.InterfaceJuego;
 public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
