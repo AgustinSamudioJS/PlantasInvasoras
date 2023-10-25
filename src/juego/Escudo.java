@@ -1,4 +1,5 @@
 package juego;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -13,21 +14,20 @@ public class Escudo {
 	int y;
 	double angulo;
 	Image img1;
-	Color myColor= Color.blue;
-	Rectangle cajaLayka=new Rectangle(x,y,alto,ancho);
-	public Escudo(int x, int y,int alto,int ancho) 
-	{
+	Color myColor = Color.blue;
+	Rectangle cajaLayka = new Rectangle(x, y, alto, ancho);
+
+	public Escudo(int x, int y, int alto, int ancho) {
 		this.x = x;
 		this.y = y;
-		this.ancho=ancho;
-		this.alto=alto;
+		this.ancho = ancho;
+		this.alto = alto;
 		img1 = Herramientas.cargarImagen("recursos/Escudo.png");
 	}
-	
-	public void dibujarse(Entorno entorno)
-	{
+
+	public void dibujarse(Entorno entorno) {
 		entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.17);
-	
+
 	}
 
 	public void setAngulo(double angulo) {
