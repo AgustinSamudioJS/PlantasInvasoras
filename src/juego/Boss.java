@@ -23,8 +23,8 @@ public class Boss {
 			this.alto=alto;
 			this.ancho=ancho;
 		    motor=false; 
-			img1 = Herramientas.cargarImagen("Boss.gif");
-			img2 = Herramientas.cargarImagen("Boss.gif");
+			img1 = Herramientas.cargarImagen("recursos/Boss.gif");
+			img2 = Herramientas.cargarImagen("recursos/Boss.gif");
 		}
 		public void dibujarse(Entorno entorno)
 		  {

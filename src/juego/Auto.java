@@ -16,17 +16,15 @@ public class Auto {
 	boolean motor;
 	Color myColor= Color.blue;
 	Rectangle caja=new Rectangle(x,y,ancho,alto);
-	int velocidad = 2;
-	
-		
+	int velocidad = 2;	
 		public Auto(int x, int y,int ancho,int alto) {
 			this.x = x;
 			this.y = y;
 			this.alto=alto;
 			this.ancho=ancho;
 		    motor=false; 
-			img1 = Herramientas.cargarImagen("auto.png");
-			img2 = Herramientas.cargarImagen("auto.png");
+			img1 = Herramientas.cargarImagen("recursos/auto.png");
+			img2 = Herramientas.cargarImagen("recursos/auto.png");
 		}
 		
 		public void setAngulo(double angulo) {

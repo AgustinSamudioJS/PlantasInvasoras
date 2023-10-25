@@ -25,8 +25,8 @@ public class Domingo {
 		this.ancho=ancho;
 		this.alto=alto;
 	    motor=false; 
-		img1 = Herramientas.cargarImagen("domingo.gif");
-		img2 = Herramientas.cargarImagen("domingo.gif");
+		img1 = Herramientas.cargarImagen("recursos/domingo.gif");
+		img2 = Herramientas.cargarImagen("recursos/domingo.gif");
 				
 	}
 	

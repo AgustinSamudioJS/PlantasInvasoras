@@ -21,7 +21,7 @@ public class Escudo {
 		this.y = y;
 		this.ancho=ancho;
 		this.alto=alto;
-		img1 = Herramientas.cargarImagen("Escudo.png");
+		img1 = Herramientas.cargarImagen("recursos/Escudo.png");
 	}
 	
 	public void dibujarse(Entorno entorno)

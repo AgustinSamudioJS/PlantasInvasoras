@@ -26,8 +26,8 @@ public class Proyectil {
    this.ancho=ancho;
 //   this.angulo=angulo;
    motor=false; 
-   img1 = Herramientas.cargarImagen("BolaFuegoAzul.gif");
-   img2 = Herramientas.cargarImagen("BolaFuegoAzul.gif");
+   img1 = Herramientas.cargarImagen("recursos/BolaFuegoAzul.gif");
+   img2 = Herramientas.cargarImagen("recursos/BolaFuegoAzul.gif");
   }
   
   public void dibujarse(Entorno entorno)

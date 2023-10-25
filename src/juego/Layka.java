@@ -25,8 +25,8 @@ public class Layka {
 		this.ancho=ancho;
 		this.alto=alto;
 	    motor=false; 
-		img1 = Herramientas.cargarImagen("Dug.gif");
-		img2 = Herramientas.cargarImagen("Dug.gif");
+		img1 = Herramientas.cargarImagen("recursos/Dug.gif");
+		img2 = Herramientas.cargarImagen("recursos/Dug.gif");
 				
 	}
 	

@@ -34,7 +34,6 @@ public class Juego extends InterfaceJuego
 	Proyectil proyectil;
 	double anguloFondo;
 	Juego(){
-		
 		// Inicializa el objeto entorno
 		this.entorno = new Entorno(this, "Plantas Invasoras - Grupo 5 - v1", 800, 591);
 		// Inicializar lo que haga falta para el juego
@@ -60,14 +59,14 @@ public class Juego extends InterfaceJuego
 		manzana5=new Colision(404, 430, 180, 133);
 		manzana6=new Colision(623, 430, 180, 133);
 //		proyectil=new Proyectil(100,100,10,20);
-		Fondo = Herramientas.cargarImagen("FondoCalleJuego3.png");
-		gameOver= Herramientas.cargarImagen("gameover.png");
-		winner = Herramientas.cargarImagen("winner.png");
+		Fondo = Herramientas.cargarImagen("recursos/FondoCalleJuego3.png");
+		gameOver= Herramientas.cargarImagen("recursos/gameover.png");
+		winner = Herramientas.cargarImagen("recursos/winner.png");
 		anguloFondo=0;
 		proyectil=new Proyectil(100,100,10,20);
-//		Herramientas.cargarSonido("musica2.wav");
-//		Herramientas.cargarSonido("muerte.wav");
-//		Herramientas.loop("musica2.wav");
+//		Herramientas.cargarSonido("recursos/musica2.wav");
+//		Herramientas.cargarSonido("recursos/muerte.wav");
+//		Herramientas.loop("recursos/musica2.wav");
 		// Inicia el juego!
 		this.entorno.iniciar();
 	}
@@ -189,7 +188,7 @@ public class Juego extends InterfaceJuego
 			}
 			//COLISION CON LA PLANTA
 			if (auto.colisionCaja(planta1.x, planta1.y, planta1.alto, planta1.ancho, proyectil.x, proyectil.y, proyectil.ancho, proyectil.alto)) {
-				Herramientas.play("muerte.wav");
+				Herramientas.play("recursos/muerte.wav");
 				planta1=null;
 				if (cont==0) {
 					planta1=new Planta(310,10,40,40);
@@ -204,21 +203,21 @@ public class Juego extends InterfaceJuego
 				muertes=muertes+1;
 			}
 			if (auto.colisionCaja(planta2.x, planta2.y, planta2.alto, planta2.ancho, proyectil.x, proyectil.y, proyectil.ancho, proyectil.alto)) {
-				Herramientas.play("muerte.wav");
+				Herramientas.play("recursos/muerte.wav");
 				planta2=null;
 				planta2=new Planta(726,540,40,40);
 				puntos=puntos+5;	
 				muertes=muertes+1;
 			}
 			if (auto.colisionCaja(planta3.x, planta3.y, planta3.alto, planta3.ancho, proyectil.x, proyectil.y, proyectil.ancho, proyectil.alto)) {
-				Herramientas.play("muerte.wav");
+				Herramientas.play("recursos/muerte.wav");
 				planta3=null;
 				planta3=new Planta(530,580,40,40);
 				puntos=puntos+5;	
 				muertes=muertes+1;
 			}
 			if (auto.colisionCaja(planta4.x, planta4.y, planta4.alto, planta4.ancho, proyectil.x, proyectil.y, proyectil.ancho, proyectil.alto)) {
-				Herramientas.play("muerte.wav");
+				Herramientas.play("recursos/muerte.wav");
 				planta4=null;
 				planta4=new Planta(166,58,40,40);
 				puntos=puntos+5;	

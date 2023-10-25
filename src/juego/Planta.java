@@ -25,8 +25,8 @@ public class Planta {
 			this.alto=alto;
 			this.ancho=ancho;
 		    motor=false; 
-			img1 = Herramientas.cargarImagen("PlantaZombie1.png");
-			img2 = Herramientas.cargarImagen("PlantaZombie1.png");
+			img1 = Herramientas.cargarImagen("recursos/PlantaZombie1.png");
+			img2 = Herramientas.cargarImagen("recursos/PlantaZombie1.png");
 		}
 		
 		public void setAngulo(double angulo) {

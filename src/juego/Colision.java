@@ -1,9 +1,6 @@
 package juego;
 import java.awt.Color;
-import java.awt.Image;
 import entorno2.Entorno;
-import entorno2.Herramientas;
-import entorno2.InterfaceJuego;
 import java.awt.Rectangle;
 
 public class Colision {
