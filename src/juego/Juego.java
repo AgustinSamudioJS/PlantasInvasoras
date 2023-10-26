@@ -12,6 +12,9 @@ public class Juego extends InterfaceJuego {
 	private Entorno entorno;
 	// Variables y métodos propios de cada grupo
 	// String puntaje[][] = new String[10][2];
+	Pocion pocion;
+	Portal portal;
+	Estrella estrella;
 	Escudo escudo;
 	Image winner;
 	Image gameOver;
@@ -63,6 +66,10 @@ public class Juego extends InterfaceJuego {
 		manzana5 = new Colision(404, 430, 180, 133);
 		manzana6 = new Colision(623, 430, 180, 133);
 		vidas = 5;
+		pocion= new Pocion(310,20,10,10);
+		estrella= new Estrella(20,540,10,10);
+		portal= new Portal(780,540,10,10);
+
 //		proyectil=new Proyectil(100,100,10,20);
 		Fondo = Herramientas.cargarImagen("recursos/FondoCalleJuego3.png");
 		gameOver = Herramientas.cargarImagen("recursos/gameover.png");
@@ -172,6 +179,9 @@ public class Juego extends InterfaceJuego {
 			domingo.dibujarse(entorno);
 			layka.dibujarse(entorno);
 			auto.dibujarse(entorno);
+			pocion.dibujarse(entorno);
+			estrella.dibujarse(entorno);
+			portal.dibujarse(entorno);
 			entorno.cambiarFont("Impact", 20, Color.black);
 			entorno.escribirTexto("posicion en x:" + layka.x, 500, 150);
 			entorno.escribirTexto("posicion en y:" + layka.y, 500, 200);
@@ -200,19 +210,7 @@ public class Juego extends InterfaceJuego {
 				proyectil.moverAdelante();
 				proyectil.dibujarCaja(entorno);
 			}
-			// COLISION CON AUTO
-			if (auto.colisionCaja(auto.x - 3, auto.y - 32, auto.alto, auto.ancho, layka.x, layka.y, layka.ancho,
-					layka.alto)
-					|| auto.colisionCaja(auto2.x - 32, auto2.y, auto2.alto, auto2.ancho, layka.x, layka.y, layka.ancho,
-							layka.alto)) {
-				Herramientas.play("recursos/muerte.wav");
-				layka = null;
-				vidas -= 1;
-				if (vidas == 0) {
-					entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
-					entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
-				}
-			}
+			
 			// COLISION CON LA PLANTA
 			if (auto.colisionCaja(planta1.x, planta1.y, planta1.alto, planta1.ancho, proyectil.x, proyectil.y,
 					proyectil.ancho, proyectil.alto)) {
@@ -278,7 +276,64 @@ public class Juego extends InterfaceJuego {
 					cont = 0;
 				}
 			}
-
+			//COLISON POSION   
+//			entorno.dibujarImagen(portal, 780, 540, anguloFondo, 0.17);
+//			entorno.dibujarImagen(estrella, 20, 540, anguloFondo, 0.08);
+			if (auto.colisionCaja(pocion.x, pocion.y, pocion.ancho, pocion.alto, layka.x, layka.y,
+					layka.ancho, layka.alto)) {
+				pocion=null;
+				pocion=new Pocion(300,560,10,10);
+				vidas+=1;
+				if(cont==0) {
+					pocion=new Pocion(310,20,10,10);
+					cont+=1;
+				}
+				else {
+					pocion=new Pocion(100,560,10,10);
+					cont=0;
+				}
+				if(vidas>5) {
+					vidas=5;
+				}
+			}
+			// ESTRELLA
+			if (auto.colisionCaja(estrella.x, estrella.y,estrella.alto, estrella.ancho, layka.x, layka.y,
+					layka.ancho, layka.alto)) {
+				estrella=null;
+				estrella=new Estrella(300,560,10,10);
+				layka.velocidad+=1;
+				if(cont==0) {
+					estrella=new Estrella(500,20,10,10);
+					cont+=1;
+				}
+				else {
+					estrella=new Estrella(300,560,10,10);
+					cont=0;
+				}
+				if(layka.velocidad>4) {
+					layka.velocidad=4;
+				}
+			}
+			//PORTAL
+			if (auto.colisionCaja(portal.x, portal.y, portal.alto, portal.ancho, layka.x, layka.y,
+					layka.ancho, layka.alto)) {
+				layka=null;
+				layka=new Layka(20,20,40,40);
+				
+			}
+			// COLISION CON AUTO
+			if (auto.colisionCaja(auto.x - 3, auto.y - 32, auto.alto, auto.ancho, layka.x, layka.y, layka.ancho,
+					layka.alto)
+					|| auto.colisionCaja(auto2.x - 32, auto2.y, auto2.alto, auto2.ancho, layka.x, layka.y, layka.ancho,
+							layka.alto)) {
+				Herramientas.play("recursos/muerte.wav");
+				layka = null;
+				vidas -= 1;
+				if (vidas == 0) {
+					entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
+					entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
+				}
+			}
 			// MOVIMIENTOS PERRO 2
 
 			// NIVEL 2
