@@ -46,7 +46,8 @@ public class Juego extends InterfaceJuego {
 		domingo = new Domingo(170, 570, 20, 20);
 		escudo = new Escudo(400, 580, 20, 20);
 		boss = new Boss(400, 560, 40, 40);
-		layka = new Layka(400, 560, 40, 40);
+		//layka = new Layka(400, 560, 40, 40);
+		layka = new Layka(720,180, 40, 40);
 		planta1 = new Planta(480, 575, 40, 40);
 		planta1.setAngulo(Herramientas.radianes(0));
 		planta2 = new Planta(22, 50, 40, 40);
@@ -57,14 +58,20 @@ public class Juego extends InterfaceJuego {
 		planta4.setAngulo(Herramientas.radianes(0));
 		auto = new Auto(490, 300, 100, 40);
 		auto.setAngulo(Herramientas.radianes(90));
-		auto2 = new Auto(200, 280, 40, 100);
+		auto2 = new Auto(200, 280, 37, 100);
 		auto2.setAngulo(Herramientas.radianes(0));
-		manzana1 = new Colision(173, 170, 180, 133);
-		manzana2 = new Colision(400, 170, 180, 133);
-		manzana3 = new Colision(625, 170, 180, 133);
-		manzana4 = new Colision(173, 430, 180, 133);
-		manzana5 = new Colision(404, 430, 180, 133);
-		manzana6 = new Colision(623, 430, 180, 133);
+//		manzana1 = new Colision(173, 170, 180, 133);
+//		manzana2 = new Colision(400, 170, 180, 133);
+//		manzana3 = new Colision(625, 170, 180, 133);
+//		manzana4 = new Colision(173, 430, 180, 133);
+//		manzana5 = new Colision(404, 430, 180, 133);
+//		manzana6 = new Colision(623, 430, 180, 133);
+		manzana1 = new Colision(173, 170, 143, 185);
+		manzana2 = new Colision(404, 170, 143, 185);
+		manzana3 = new Colision(627, 170, 143, 185);
+		manzana4 = new Colision(173, 432, 143, 185);
+		manzana5 = new Colision(404, 432, 143, 185);
+		manzana6 = new Colision(627, 432, 143, 185);
 		vidas = 5;
 		pocion= new Pocion(310,20,10,10);
 		estrella= new Estrella(20,540,10,10);
@@ -146,19 +153,30 @@ public class Juego extends InterfaceJuego {
 				domingo.apagarMotor();
 			}
 			// COLISION CON LAS CAJAS
-			if (manzana1.colisionCaja(33 + manzana1.ancho / 2, 33 + manzana1.alto / 2, manzana1.alto, manzana1.ancho,
-					layka.x, layka.y, layka.ancho, layka.alto)
-					|| manzana2.colisionCaja(263 + manzana2.ancho / 2, 33 + manzana2.alto / 2, manzana2.alto,
-							manzana2.ancho, layka.x, layka.y, layka.ancho, layka.alto)
-					|| (manzana1.colisionCaja(488 + manzana3.ancho / 2, 33 + manzana3.alto / 2, manzana3.alto,
-							manzana3.ancho, layka.x, layka.y, layka.ancho, layka.alto)
-							|| manzana4.colisionCaja(33 + manzana4.ancho / 2, 293 + manzana4.alto / 2, manzana4.alto,
-									manzana4.ancho, layka.x, layka.y, layka.ancho, layka.alto)
-							|| manzana5.colisionCaja(263 + manzana5.ancho / 2, 293 + manzana5.alto / 2, manzana5.alto,
-									manzana5.ancho, layka.x, layka.y, layka.ancho, layka.alto))
-					|| manzana6.colisionCaja(488 + manzana6.ancho / 2, 293 + manzana6.alto / 2, manzana6.alto,
-							manzana6.ancho, layka.x, layka.y, layka.ancho, layka.alto)) {
-				layka.empujar();
+//			if (manzana1.colisionCaja(33 + manzana1.ancho / 2, 33 + manzana1.alto / 2, manzana1.alto, manzana1.ancho,
+//					layka.x, layka.y, layka.ancho, layka.alto)
+//					|| manzana2.colisionCaja(263 + manzana2.ancho / 2, 33 + manzana2.alto / 2, manzana2.alto,
+//							manzana2.ancho, layka.x, layka.y, layka.ancho, layka.alto)
+//					|| (manzana1.colisionCaja(488 + manzana3.ancho / 2, 33 + manzana3.alto / 2, manzana3.alto,
+//							manzana3.ancho, layka.x, layka.y, layka.ancho, layka.alto)
+//							|| manzana4.colisionCaja(33 + manzana4.ancho / 2, 293 + manzana4.alto / 2, manzana4.alto,
+//									manzana4.ancho, layka.x, layka.y, layka.ancho, layka.alto)
+//							|| manzana5.colisionCaja(263 + manzana5.ancho / 2, 293 + manzana5.alto / 2, manzana5.alto,
+//									manzana5.ancho, layka.x, layka.y, layka.ancho, layka.alto))
+//					|| manzana6.colisionCaja(488 + manzana6.ancho / 2, 293 + manzana6.alto / 2, manzana6.alto,
+//							manzana6.ancho, layka.x, layka.y, layka.ancho, layka.alto)) {
+//				layka.empujar();
+//			}
+			if (manzana1.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					|| manzana1.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					||manzana2.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					|| manzana3.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					|| manzana4.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					|| manzana5.colision(layka.x, layka.y, layka.ancho, layka.alto)
+					|| manzana6.colision(layka.x, layka.y, layka.ancho, layka.alto)) {
+				{
+					layka.empujar();
+				}
 			}
 			// DIBUJOS
 			// proyectil.dibujarse(entorno);
@@ -231,15 +249,14 @@ public class Juego extends InterfaceJuego {
 					proyectil.ancho, proyectil.alto)) {
 				Herramientas.play("recursos/muerte.wav");
 				planta2 = null;
-				planta2 = new Planta(726, 540, 40, 40);
 				puntos += 5;
 				muertes += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
-					planta2 = new Planta(80, 540, 40, 40);
+					planta2 = new Planta(80, 10, 40, 40);
 					cont += 1;
 				} else {
-					planta2 = new Planta(726, 540, 40, 40);
+					planta2 = new Planta(480, 575, 40, 40);
 					cont = 0;
 				}
 			}
@@ -247,7 +264,6 @@ public class Juego extends InterfaceJuego {
 					proyectil.ancho, proyectil.alto)) {
 				Herramientas.play("recursos/muerte.wav");
 				planta3 = null;
-				planta3 = new Planta(530, 580, 40, 40);
 				puntos += 5;
 				muertes += 1;
 				// ALTERNATIVA, 2 UBICACIONES
@@ -259,26 +275,22 @@ public class Juego extends InterfaceJuego {
 					cont = 0;
 				}
 			}
-
 			if (auto.colisionCaja(planta4.x, planta4.y, planta4.alto, planta4.ancho, proyectil.x, proyectil.y,
 					proyectil.ancho, proyectil.alto)) {
 				Herramientas.play("recursos/muerte.wav");
 				planta4 = null;
-				planta4 = new Planta(166, 58, 40, 40);
 				puntos += 5;
 				muertes += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
-					planta4 = new Planta(166, 58, 40, 40);
+					planta4 = new Planta(310, 10, 40, 40);
 					cont += 1;
 				} else {
-					planta4 = new Planta(166, 58, 40, 40);
+					planta4 = new Planta(774, 320, 40, 40);
 					cont = 0;
 				}
 			}
-			//COLISON POSION   
-//			entorno.dibujarImagen(portal, 780, 540, anguloFondo, 0.17);
-//			entorno.dibujarImagen(estrella, 20, 540, anguloFondo, 0.08);
+			//COLISON POSION 
 			if (auto.colisionCaja(pocion.x, pocion.y, pocion.ancho, pocion.alto, layka.x, layka.y,
 					layka.ancho, layka.alto)) {
 				pocion=null;
@@ -321,6 +333,28 @@ public class Juego extends InterfaceJuego {
 				layka=new Layka(20,20,40,40);
 				
 			}
+			//COLISION PLANTA
+			if(vidas==0) {
+				entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
+				entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
+				layka=null;
+			}
+			if(vidas!=0){
+			if (planta1.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)
+					||planta2.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)
+					||planta3.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)
+					||planta4.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)) {
+				//					||layka.colisionConPlantas(planta4.x, planta4.y, planta4.ancho, planta4.alto)) {
+				Herramientas.play("recursos/muerte.wav");
+				layka = null;
+				vidas -= 1;
+				layka = new Layka(720,180, 40, 40);
+//				if (vidas == 0) {
+//					entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
+//					entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
+//					
+//				}
+			}
 			// COLISION CON AUTO
 			if (auto.colisionCaja(auto.x - 3, auto.y - 32, auto.alto, auto.ancho, layka.x, layka.y, layka.ancho,
 					layka.alto)
@@ -329,11 +363,19 @@ public class Juego extends InterfaceJuego {
 				Herramientas.play("recursos/muerte.wav");
 				layka = null;
 				vidas -= 1;
-				if (vidas == 0) {
-					entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
-					entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
-				}
+				layka = new Layka(720,180, 40, 40);
+//				if (vidas == 0) {
+//					entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
+//					entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
+//				}
 			}
+			}
+			
+		//AUTO FRENA CUANDO ESTA PASANDO EL OTRO
+		if (auto.frenado(auto2.x, auto2.y, auto2.ancho, auto2.alto, auto2.angulo)){
+			auto2.empujar();
+		}
+		
 			// MOVIMIENTOS PERRO 2
 
 			// NIVEL 2
@@ -404,7 +446,7 @@ public class Juego extends InterfaceJuego {
 				respuesta = teclado.next();
 				if (respuesta.equalsIgnoreCase("s")) {
 					boss = new Boss(400, 560, 40, 40);
-					layka = new Layka(400, 560, 40, 40);
+					layka = new Layka(720,180, 40, 40);
 					planta1 = new Planta(480, 575, 40, 40);
 					planta1.setAngulo(Herramientas.radianes(0));
 					planta2 = new Planta(22, 50, 40, 40);
@@ -434,7 +476,7 @@ public class Juego extends InterfaceJuego {
 
 				}
 			} else {
-				layka = new Layka(400, 560, 40, 40);
+				layka = new Layka(720,180, 40, 40);
 
 			}
 		}

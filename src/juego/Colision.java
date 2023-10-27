@@ -28,5 +28,12 @@ public class Colision {
 	public void dibujarCaja(Entorno entorno) {
 		entorno.dibujarRectangulo(x, y, alto, ancho, 0, myColor);
 	}
+	
+	public boolean colision(int x, int y, int ancho, int alto) {
+		if(this.x-this.ancho/2>x+ancho/2 || this.y-this.alto/2>y+alto/2 || x-ancho/2>this.x+this.ancho/2 || y-alto/2>this.y+this.alto/2) {
+			return false;
+		}
+		return true;
+	}
 
 }

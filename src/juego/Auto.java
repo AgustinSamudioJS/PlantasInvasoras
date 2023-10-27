@@ -35,7 +35,7 @@ public class Auto {
 
 	public void dibujarse(Entorno entorno) {
 
-		entorno.dibujarImagen(img2, this.x, this.y, this.angulo - Math.PI / 2, 0.4);
+		entorno.dibujarImagen(img2, this.x, this.y, this.angulo - Math.PI / 2, 0.36);
 	}
 
 	public void girar(double modificador) {
@@ -81,5 +81,21 @@ public class Auto {
 			return true;
 		}
 
+	}
+	public boolean frenado(int x, int y, int ancho, int alto, double angulo) {
+		if(this.y+this.alto/2>164 && this.y+this.alto/2<437 && x+ancho/2>=464 && x+ancho/2<=474  && angulo==Herramientas.radianes(0) ) 
+			return true;
+		if(this.y+this.alto/2>164 && this.y+this.alto/2<437 && x-ancho/2<=560 && x-ancho/2>=550 && angulo==Herramientas.radianes(180) )
+			return true;
+		if(this.y-this.alto/2<437 && this.y-this.alto/2>164 && x+ancho/2>=464 && x+ancho/2<=474  && angulo==Herramientas.radianes(0) ) 
+			return true;
+		if(this.y-this.alto/2<437 && this.y-this.alto/2>164 && x-ancho/2==560 && x-ancho/2>=550 && angulo==Herramientas.radianes(180) ) 
+			return true;
+		
+		return false;
+	}
+	public void empujar() {
+		this.x += Math.cos(this.angulo) * -velocidad;
+		this.y += Math.sin(this.angulo) * -velocidad;
 	}
 }
