@@ -95,4 +95,8 @@ public class Layka {
 	public void dibujarCaja(Entorno entorno) {
 		entorno.dibujarRectangulo(x, y, alto, ancho, 0, myColor);
 	}
+	public void cambiarImagen(Image nuevaImagen) {
+		this.img1=nuevaImagen;
+		this.img2=nuevaImagen;
+	}
 }

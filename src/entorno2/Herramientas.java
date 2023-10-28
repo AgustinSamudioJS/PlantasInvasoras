@@ -57,6 +57,12 @@ public class Herramientas {
 	public static void loop(String file) {
 		cargarSonido(file).loop(Clip.LOOP_CONTINUOUSLY);
 	}
+	public static void stop(String file) {
+		cargarSonido(file).setLoopPoints(0, -1);
+	}
+	public static void otro(String file) {
+		cargarSonido(file).close();
+	}
 
 	/**
 	 * Devuelve un objeto de tipo Clip que contiene el sonido (o m�sica) cargado
