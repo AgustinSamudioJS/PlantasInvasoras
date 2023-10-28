@@ -88,4 +88,15 @@ public class Proyectil {
 			return true;
 		}
 	}
+	public void cambiarImagen(Image nuevaImagen) {
+		this.img1=nuevaImagen;
+		this.img2=nuevaImagen;
+	}
+	public boolean cooldownPlanta() {
+		if (contadorTicks > 500) {
+			return false;
+		}
+		contadorTicks += 1;
+		return true;
+	}
 }
