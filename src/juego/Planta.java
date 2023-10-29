@@ -95,11 +95,12 @@ public class Planta {
 		this.motor = false;
 
 	}
-	public boolean colisionConLayka(int x2,int y2, int ancho2, int alto2) {
-		if (x2-3>this.x+this.ancho || y2-32>this.y+this.alto || this.x>x2+ancho2 || this.y>y2+alto2) {
+
+	public boolean colisionConLayka(int x2, int y2, int ancho2, int alto2) {
+		if (x2 - 3 > this.x + this.ancho || y2 - 32 > this.y + this.alto || this.x > x2 + ancho2
+				|| this.y > y2 + alto2) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}

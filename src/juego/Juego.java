@@ -41,6 +41,7 @@ public class Juego extends InterfaceJuego {
 	Proyectil proyectil2;
 	Image laykaOriginal;
 	Image BolaFuegoPlanta;
+	Image Score;
 	double anguloFondo;
 	boolean EscudoDesactivado;
 	boolean choco;
@@ -75,13 +76,14 @@ public class Juego extends InterfaceJuego {
 		pocion = new Pocion(310, 20, 10, 10);
 		estrella = new Estrella(20, 540, 10, 10);
 		portal = new Portal(780, 570, 10, 10);
-		BolaFuegoPlanta= Herramientas.cargarImagen("recursos/BolaFuego.gif");
+		BolaFuegoPlanta = Herramientas.cargarImagen("recursos/BolaFuego.gif");
 		Fondo = Herramientas.cargarImagen("recursos/FondoCalleJuego3.png");
 		gameOver = Herramientas.cargarImagen("recursos/gameover.png");
 		winner = Herramientas.cargarImagen("recursos/winner.png");
 		corazon = Herramientas.cargarImagen("recursos/vida.gif");
 		escudito = Herramientas.cargarImagen("recursos/DugEscudo.gif");
 		laykaOriginal = Herramientas.cargarImagen("recursos/Dug.gif");
+		Score = Herramientas.cargarImagen("recursos/scoreFinal.png");
 		anguloFondo = 0;
 		proyectil = new Proyectil(100, 100, 10, 20);
 		proyectil2 = new Proyectil(100, 300, 10, 20);
@@ -100,20 +102,27 @@ public class Juego extends InterfaceJuego {
 	 * estado interno del juego para simular el paso del tiempo (ver el enunciado
 	 * del TP para mayor detalle).
 	 */
+	// VARIABLES
+	int items=0;
 	int puntos = 0;
 	int nivel = 1;
-	int muertes = 0;
+	int muertesPlantas = 0;
+	int muertesLayka=0;
+	int muertesJefe=0;
+	int muertesPorAuto=0;
+	int muertesPorPlantas=0;
+	int muertesPorJefe=0;
 	int cont = 0;
 	int vidas = 5;
 	boolean gano = false;
-	int vidasJefe=10;
+	int vidasJefe = 10;
 
 	@SuppressWarnings("resource")
 
 	public void tick() {
 		if (layka != null) {
-			// DIBUJOS
-			// proyectil.dibujarse(entorno);
+
+			// DIBUJOS EN LA PANTALLA
 			anguloFondo = 0;
 			entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo); // FONDO
 			entorno.dibujarImagen(corazon, 780, 20, anguloFondo, 0.7);
@@ -140,11 +149,11 @@ public class Juego extends InterfaceJuego {
 			entorno.cambiarFont("Impact", 20, Color.white);
 			entorno.escribirTexto("Points:" + puntos, 8, 20);
 			entorno.escribirTexto("Level:" + nivel, 740, 580);
-			entorno.escribirTexto("Plants:" + muertes, 8, 580);
+			entorno.escribirTexto("Plants:" + muertesPlantas, 8, 580);
 			entorno.escribirTexto("" + vidas, 775, 25);
 			proyectil2.cambiarImagen(BolaFuegoPlanta);
 
-			// MOVIMIENTOS PERRO 1 (Layka)
+			// MOVIMIENTOS PERRO 1 (LAYKA)
 			if (entorno.sePresiono(entorno.TECLA_DERECHA))
 				layka.setAngulo(Herramientas.radianes(0));
 
@@ -164,7 +173,7 @@ public class Juego extends InterfaceJuego {
 			} else {
 				layka.apagarMotor();
 			}
-			// MOVIMIENTOS PERRO 2
+			// MOVIMIENTOS PERRO 2 (DOM)
 			if (entorno.sePresiono(entorno.TECLA_D))
 				domingo.setAngulo(Herramientas.radianes(0));
 
@@ -184,7 +193,7 @@ public class Juego extends InterfaceJuego {
 			} else {
 				domingo.apagarMotor();
 			}
-			//COLISION MANZANA CON LAYKA
+			// COLISION MANZANA CON LAYKA
 			if (manzana1.colision(layka.x, layka.y, layka.ancho, layka.alto)
 					|| manzana1.colision(layka.x, layka.y, layka.ancho, layka.alto)
 					|| manzana2.colision(layka.x, layka.y, layka.ancho, layka.alto)
@@ -196,7 +205,7 @@ public class Juego extends InterfaceJuego {
 					layka.empujar();
 				}
 			}
-			//COLISION MANZANA CON PERRO 2
+			// COLISION MANZANA CON PERRO 2
 			if (manzana1.colision(domingo.x, domingo.y, domingo.ancho, domingo.alto)
 					|| manzana1.colision(domingo.x, domingo.y, domingo.ancho, domingo.alto)
 					|| manzana2.colision(domingo.x, domingo.y, domingo.ancho, domingo.alto)
@@ -210,8 +219,8 @@ public class Juego extends InterfaceJuego {
 			}
 
 			// PROYECTILES: AL CONTAR MAS DE 300 TICKS ESTANDO EN PANTALLA, EL PROYECTIL
-			// DESAPARECE. ESTE MISMO APARECE EN EL X Y EL Y DE LAYKA, Y SE VA MOVIENDO 
-			//A LA IZQUIERDA O DERECHA,DEPENDIENDO DEL ANGULO EN EL QUE MIRE EL PROYECTIL
+			// DESAPARECE. ESTE MISMO APARECE EN EL X Y EL Y DE LAYKA, Y SE VA MOVIENDO
+			// A LA IZQUIERDA O DERECHA,DEPENDIENDO DEL ANGULO EN EL QUE MIRE EL PROYECTIL
 			if (!proyectil.cooldown()) {
 				if (entorno.sePresiono(entorno.TECLA_ESPACIO)) {
 					proyectil.setPosicion(layka.x, layka.y);
@@ -223,25 +232,24 @@ public class Juego extends InterfaceJuego {
 				proyectil.dibujarse(entorno);
 				proyectil.moverAdelante();
 			}
-			//BOLA DE FUEGO PLANTA, falta solucionar esto
+			// BOLA DE FUEGO PLANTA, falta solucionar esto
 			if (!proyectil2.cooldown()) {
 				proyectil2.contadorTicks = 0;
 				proyectil2.setPosicion(planta1.x, planta1.y);
 				proyectil2.setAngulo(layka.angulo);
 				proyectil2.dibujarse(entorno);
-			}
-			else {
+			} else {
 				proyectil2.dibujarse(entorno);
 				proyectil2.moverAdelante();
 			}
 
-			// COLISION PROYECTIL CON LA PLANTA
+			// COLISIONES PROYECTIL CON LA PLANTA
 			if (auto.colisionCaja(planta1.x, planta1.y, planta1.alto, planta1.ancho, proyectil.x, proyectil.y,
 					proyectil.ancho, proyectil.alto)) {
 				Herramientas.play("recursos/muerte.wav");
 				planta1 = null;
 				puntos += 5;
-				muertes += 1;
+				muertesPlantas += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
 					planta1 = new Planta(310, 10, 40, 40);
@@ -256,7 +264,7 @@ public class Juego extends InterfaceJuego {
 				Herramientas.play("recursos/muerte.wav");
 				planta2 = null;
 				puntos += 5;
-				muertes += 1;
+				muertesPlantas += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
 					planta2 = new Planta(80, 10, 40, 40);
@@ -271,7 +279,7 @@ public class Juego extends InterfaceJuego {
 				Herramientas.play("recursos/muerte.wav");
 				planta3 = null;
 				puntos += 5;
-				muertes += 1;
+				muertesPlantas += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
 					planta3 = new Planta(166, 58, 40, 40);
@@ -286,7 +294,7 @@ public class Juego extends InterfaceJuego {
 				Herramientas.play("recursos/muerte.wav");
 				planta4 = null;
 				puntos += 5;
-				muertes += 1;
+				muertesPlantas += 1;
 				// ALTERNATIVA, 2 UBICACIONES
 				if (cont == 0) {
 					planta4 = new Planta(310, 10, 40, 40);
@@ -296,12 +304,13 @@ public class Juego extends InterfaceJuego {
 					cont = 0;
 				}
 			}
-			//COLISION PROYECTIL CON JEFE FINAL
-			if (auto.colisionCaja(boss.x, boss.y, boss.ancho, boss.alto, proyectil.x, proyectil.y-20, proyectil.ancho+30,
-					proyectil.alto+30)) {
+			// COLISION PROYECTIL CON JEFE FINAL
+			if (auto.colisionCaja(boss.x, boss.y, boss.ancho, boss.alto, proyectil.x, proyectil.y - 20,
+					proyectil.ancho + 30, proyectil.alto + 30)) {
 				boss = null;
+				muertesJefe +=1;
 				vidasJefe -= 1;
-				puntos+=10;
+				puntos += 10;
 				if (cont == 0) {
 					boss = new Boss(310, 35, 10, 10);
 					cont += 1;
@@ -310,13 +319,14 @@ public class Juego extends InterfaceJuego {
 					cont = 0;
 				}
 			}
-			if(vidasJefe==0) {
-				puntos+=1000;
+			if (vidasJefe == 0) {
+				puntos += 1000;
 			}
-			
+
 			// COLISON POSION
 			if (auto.colisionCaja(pocion.x, pocion.y, pocion.ancho, pocion.alto, layka.x, layka.y, layka.ancho,
 					layka.alto)) {
+				items+=1;
 				pocion = null;
 				pocion = new Pocion(300, 560, 10, 10);
 				vidas += 1;
@@ -331,9 +341,10 @@ public class Juego extends InterfaceJuego {
 					vidas = 5;
 				}
 			}
-			// ESTRELLA
+			// COLISION ESTRELLA
 			if (auto.colisionCaja(estrella.x, estrella.y, estrella.alto, estrella.ancho, layka.x, layka.y, layka.ancho,
 					layka.alto)) {
+				items+=1;
 				estrella = null;
 				estrella = new Estrella(300, 560, 10, 10);
 				layka.velocidad += 1;
@@ -348,18 +359,19 @@ public class Juego extends InterfaceJuego {
 					layka.velocidad = 4;
 				}
 			}
-			// PORTAL
+			// COLSION PORTAL
 			if (auto.colisionCaja(portal.x, portal.y, portal.alto, portal.ancho, layka.x, layka.y, layka.ancho,
 					layka.alto)) {
 				layka = null;
 				layka = new Layka(20, 20, 40, 40);
 
 			}
-			// ESCUDO
+			// COLISION ESCUDO
 			if (nivel == 2 || nivel == 3 || nivel == 4) {
 
 				if (auto.colisionCaja(escudo.x, escudo.y, escudo.alto, escudo.ancho, layka.x, layka.y, layka.ancho,
 						layka.alto)) {
+					items+=1;
 					layka.cambiarImagen(escudito);
 					EscudoDesactivado = false;
 					escudo = null;
@@ -374,21 +386,22 @@ public class Juego extends InterfaceJuego {
 
 				}
 			}
-			// COLISION PLANTA
+			// SIN VIDAS
 			if (vidas == 0) {
 				entorno.dibujarImagen(Fondo, 400, 295.5, anguloFondo);
 				entorno.dibujarImagen(gameOver, 400, 295.5, anguloFondo, 0.8);
 				layka = null;
-
 			}
-			//VIDAS LAYKA
+			// VIDAS LAYKA
 			if (vidas != 0) {
-				//COLISION CON PLANTAS
-				if (planta1.colisionConLayka(layka.x, layka.y-20, layka.alto, layka.ancho)
+				// COLISION CON PLANTAS
+				if (planta1.colisionConLayka(layka.x, layka.y - 20, layka.alto, layka.ancho)
 						|| planta2.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)
 						|| planta3.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)
 						|| planta4.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)) {
 					Herramientas.play("recursos/muerte.wav");
+					muertesLayka+=1;
+					muertesPorPlantas+=1;
 					layka = null;
 					vidas -= 1;
 					layka = new Layka(720, 180, 40, 40);
@@ -399,9 +412,10 @@ public class Juego extends InterfaceJuego {
 						layka.alto)
 						|| auto.colisionCaja(auto2.x - 32, auto2.y, auto2.alto, auto2.ancho, layka.x, layka.y,
 								layka.ancho, layka.alto)) {
+					muertesLayka+=1;
+					muertesPorAuto+=1;
 					choco = true;
 					if (EscudoDesactivado) {
-						// Herramientas.play("recursos/muerte.wav");
 						layka = null;
 						vidas -= 1;
 						layka = new Layka(720, 180, 40, 40);
@@ -415,9 +429,11 @@ public class Juego extends InterfaceJuego {
 						layka.cambiarImagen(laykaOriginal);
 					}
 				}
-				//LAYKA CON JEFE
+				// LAYKA COLISION CON JEFE
 				if (boss.colisionConLayka(layka.x, layka.y, layka.alto, layka.ancho)) {
 					Herramientas.play("recursos/muerte.wav");
+					muertesLayka+=1;
+					muertesPorJefe+=1;
 					layka = null;
 					vidas -= 1;
 					layka = new Layka(720, 180, 40, 40);
@@ -439,8 +455,7 @@ public class Juego extends InterfaceJuego {
 				auto2.empujar();
 			}
 
-			// MOVIMIENTOS PERRO 2
-
+			
 			// NIVEL 2
 			if (puntos >= 30 && puntos <= 100) {
 				// aumenta velocidad de los autos y plantas
@@ -452,7 +467,7 @@ public class Juego extends InterfaceJuego {
 				planta2.velocidad = 3;
 				planta3.velocidad = 3;
 				planta4.velocidad = 3;
-				
+
 			}
 			// NIVEL 3
 			if (puntos >= 105 && puntos <= 150) {
@@ -496,7 +511,7 @@ public class Juego extends InterfaceJuego {
 				entorno.cambiarFont("Impact", 20, Color.white);
 				entorno.escribirTexto("Points:" + puntos, 8, 20);
 				entorno.escribirTexto("Level:" + nivel, 740, 580);
-				entorno.escribirTexto("Plants:" + muertes, 8, 580);
+				entorno.escribirTexto("Plants:" + muertesPlantas, 8, 580);
 				entorno.dibujarImagen(corazon, 780, 20, anguloFondo, 0.7);
 				entorno.escribirTexto("" + vidas, 775, 25);
 				gano = true;
@@ -505,14 +520,14 @@ public class Juego extends InterfaceJuego {
 		} // TERMINA EL IF NULL LAYKA
 
 		else {
-			if (vidas <= 0 || gano == true) {
+			if (vidas <= 0 || gano == true) { // Si el jugador pierde todas sus vidas o gana
 
 				Scanner teclado = new Scanner(System.in);
 				String respuesta;
 				System.out.println("¿Quiere seguir jugando?, S:si, para no: ingrese cualquier tecla,"
-						+ " si desea guardar el puntaje ingrese G.");
+						+ " si desea ver el puntaje ingrese G.");
 				respuesta = teclado.next();
-				if (respuesta.equalsIgnoreCase("s")) {
+				if (respuesta.equalsIgnoreCase("s")) { // VUELVE A COMENZAR EL JUEGO
 					boss = new Boss(400, 560, 40, 40);
 					layka = new Layka(720, 180, 40, 40);
 					planta1 = new Planta(480, 575, 40, 40);
@@ -530,15 +545,27 @@ public class Juego extends InterfaceJuego {
 					proyectil = new Proyectil(-1000, -1000, 5, 5);
 					puntos = 0;
 					nivel = 1;
-					muertes = 0;
+					muertesPlantas = 0;
 					vidas = 5;
 				} else {
-					if (respuesta.equalsIgnoreCase("g")) {
+					if (respuesta.equalsIgnoreCase("g")) { // Guardar puntos y usuario
 						String PuntosS = String.valueOf(puntos);
 						String usuario;
 						System.out.println("Ingrese el nombre de usuario: ");
 						usuario = teclado.next();
-					} else {
+						entorno.dibujarImagen(Score, 400, 80, anguloFondo, 0.8);
+						entorno.cambiarFont("Impact", 20, Color.white);
+						entorno.escribirTexto("Jugador: "+usuario, 200, 180);
+						entorno.escribirTexto("Puntos: "+PuntosS, 200, 200);
+						entorno.escribirTexto("Plantas Eliminadas: "+muertesPlantas, 200, 220);
+						entorno.escribirTexto("Muertes de Layka: "+muertesLayka, 200, 240);
+						entorno.escribirTexto("Muertes del Boss: "+muertesJefe, 200, 260);
+						entorno.escribirTexto("Muertes de Layka por Plantas: "+muertesPorPlantas, 200, 280);
+						entorno.escribirTexto("Muertes de Layka por Autos: "+muertesPorAuto, 200, 300);
+						entorno.escribirTexto("Muertes de Layka por Boss: "+muertesPorJefe, 200, 320);
+						entorno.escribirTexto("Items utilizados: "+items, 200, 340);
+					}
+					else {
 						System.exit(0);
 					}
 
