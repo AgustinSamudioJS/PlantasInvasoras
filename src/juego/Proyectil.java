@@ -35,9 +35,9 @@ public class Proyectil {
 		// entorno.dibujarTriangulo(this.x, this.y, 50, 30, this.angulo, Color.yellow);
 
 		if (motor)
-			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.17);
+			entorno.dibujarImagen(img1, this.x, this.y, this.angulo, 0.19);
 		else
-			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.17);
+			entorno.dibujarImagen(img2, this.x, this.y, this.angulo, 0.19);
 	}
 
 	public void girar(double modificador) {
